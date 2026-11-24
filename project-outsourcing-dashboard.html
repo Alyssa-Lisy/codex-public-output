@@ -203,7 +203,7 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
 .weekly-number.neutral, .missing { color: var(--muted); }
 .project-table .empty-row td { text-align: center; padding: 24px 16px; color: var(--muted); }
 .empty-row strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 4px; }
-.table-notes { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; padding: 8px 16px; color: var(--muted); font-size: 12px; }
+.table-footer { display: flex; justify-content: flex-end; padding: 8px 16px; }
 .unknown-project { padding: 20px; }
 .unknown-project a { display: inline-block; margin-top: 8px; }
 .no-script { padding: 16px; }
@@ -243,7 +243,7 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
   .app-brand { gap: 8px; font-size: 15px; }
   .brand-icon { width: 26px; height: 26px; padding-bottom: 4px; }
   .workbar { padding-right: 8px; }
-  .list-header, .table-notes { padding-inline: 12px; }
+  .list-header, .table-footer { padding-inline: 12px; }
 }
 
 .d-view {
@@ -487,6 +487,55 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
   .d-filters { flex-wrap: wrap; gap: 0 12px; overflow: visible; margin-bottom: 8px; }
   .d-filters button { font-size: 12px; }
   .d-scroll-hint { display: block; color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+}
+
+.d-trend-card {
+  --d-trend-height: 194px;
+  --d-trend-top: 12px;
+  --d-trend-bottom: 28px;
+  --d-trend-series: var(--blue);
+}
+
+.d-trend-card .d-chart-body { padding-top: 12px; }
+.d-trend-card .d-trend-scroll-hint:not([hidden]) { display: block; margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+.d-trend-card .d-trend-scroll-hint[hidden] { display: none; }
+.d-trend-progress { --d-trend-series: var(--blue); }
+.d-trend-cost { --d-trend-series: var(--green-mid, var(--green)); }
+.d-trend-legend, .d-trend-readout { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; }
+.d-trend-legend > span, .d-trend-readout > span { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.d-trend-legend { color: var(--muted); }
+.d-trend-legend i { display: inline-block; width: 19px; border-top: 2px solid var(--d-trend-series); position: relative; }
+.d-trend-legend i::after { content: ''; position: absolute; left: 7px; top: -4px; width: 5px; height: 6px; background: var(--paper); border: 1px solid var(--d-trend-series); border-radius: 50%; }
+.d-trend-readout { min-height: 40px; padding: 6px 10px; background: var(--soft); border: 1px solid var(--line); border-radius: var(--radius); color: var(--muted); }
+.d-trend-readout :is(time, strong) { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.d-trend-readout i { width: 7px; height: 7px; border-radius: 50%; background: var(--d-trend-series); }
+
+.d-trend-frame { display: grid; grid-template-columns: 42px minmax(0, 1fr); min-width: 0; margin-top: 8px; }
+.d-trend-scale { position: relative; align-self: start; height: var(--d-trend-height); margin-top: var(--d-trend-top); color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.d-trend-scale > span { position: absolute; top: var(--d-trend-y); right: 1px; transform: translateY(-50%); white-space: nowrap; }
+.d-trend-scroll { min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-color: var(--line-strong) var(--soft); scrollbar-width: thin; }
+.d-trend-plot { min-width: var(--d-trend-min); padding: var(--d-trend-top) 24px var(--d-trend-bottom) 14px; }
+.d-trend-track { position: relative; height: var(--d-trend-height); }
+.d-trend-grid, .d-trend-guide, .d-trend-lines, .d-trend-dot, .d-trend-date, .d-trend-point { position: absolute; }
+.d-trend-grid { top: var(--d-trend-y); left: -7px; right: -8px; border-top: 1px dashed var(--line-strong, var(--line)); }
+.d-trend-axis { border-top-style: solid; }
+.d-trend-guide { inset-block: 0; left: var(--d-trend-x); border-left: 1px dashed var(--line-strong); }
+.d-trend-lines { inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.d-trend-lines path { fill: none; stroke: var(--d-trend-series); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.d-trend-dot { top: var(--d-trend-y); left: var(--d-trend-x); transform: translate(-50%, -50%); width: 7px; height: 7px; border: 1.5px solid var(--d-trend-series); border-radius: 50%; background: var(--paper); pointer-events: none; }
+.d-trend-dot-active { width: 10px; height: 10px; border-width: 2px; z-index: 1; }
+.d-trend-date { top: calc(100% + 8px); left: var(--d-trend-x); transform: translateX(-50%); color: var(--muted); font-size: 11px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.d-trend-date-active { color: var(--ink); font-weight: 700; }
+.d-trend-point { inset-block: 0; left: var(--d-trend-hit-left); width: var(--d-trend-hit-width); z-index: 2; padding: 0; margin: 0; border: 0; border-radius: 0; background: transparent; cursor: pointer; }
+.d-trend-card .d-trend-point:focus-visible { outline-offset: -2px; z-index: 3; }
+.d-trend-card .d-trend-scroll:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+
+@media (max-width: 650px) {
+  .d-trend-card { --d-trend-height: 168px; }
+  .d-trend-frame { grid-template-columns: 35px minmax(0, 1fr); }
+  .d-trend-plot { padding-right: 21px; }
+  .d-trend-readout { column-gap: 12px; }
+  .d-trend-readout > time { flex-basis: 100%; }
 }
 
   </style>
@@ -765,6 +814,220 @@ const projects = [
   }
 ];
 
+// 示例周末快照，周日为统计截止日。null 表示当周没有读数。
+const weeklyTrendDates = [
+  '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11', '2026-10-18',
+  '2026-10-25', '2026-11-01', '2026-11-08', '2026-11-15', '2026-11-22',
+];
+
+// 每对数值依次为项目进度与成本消耗进度（%）；短序列从实际可用周开始。
+const weeklyTrendReadings = {
+  'smart-factory': [
+    [25, 26.5], [28.4, 30.8], [30, 32.1], [34.5, 37], [39.2, 42.6],
+    [46.7, 49.9], [51, 55.4], [57.8, 62.2], [64.5, 69.6], [68, 74.2],
+  ],
+  'regional-warehouse': [
+    [19.5, 32.3], [24.8, 37.4], [26, 39.6], [30.6, 47.9], [34.1, 56.2],
+    [39, 66.6], [45.4, 76.1], [51.2, 88.8], [54.8, 97.7], [57, 106.8],
+  ],
+  'retail-platform': [
+    [48.8, 39.2], [53.4, 45.8], [54.2, 47.1], [60.5, 52.7], [66, 60.3],
+    [71.8, 65.9], [76.2, 70.4], [79, 75.2], [85.9, 80.3], [91, 83.5],
+  ],
+  'lakehouse': [
+    [12, 9.5], [15.8, 12.4], [17.1, 13.2], [20.5, 16.8], [23.2, 20.1],
+    [28.3, 24.7], [32.5, 29.4], [37.8, 34.6], [43, 39.2], [49, 43],
+  ],
+  'service-platform': [
+    [27.6, 24.4], [33.2, 30.6], [33.2, 32], [38.5, 38.4], [44.6, 45.8],
+    [51.4, 52.9], [57.2, 60.2], [63.8, 68.4], [69.2, 75.2], [77, 80.6],
+  ],
+  'supplier-management': [
+    [4.8, 3.1], [9.4, 6.9], [13.2, 11.7], [20, 16.2], [24, 18.4],
+  ],
+  'energy-control': [
+    [18.5, 21.3], [23.8, 26.6], [24.4, null], [29.2, 32.4], [33.6, 36.8],
+    [38.9, 42], [43.5, 46.5], [47.2, 49.2], [50.4, 53.1], [62, 55.9],
+  ],
+  'quality-migration': [
+    [20.5, 21.4], [25.7, 27.6], [27.4, 29.8], [34.1, 37.2], [42.7, 45.3],
+    [51.9, 53.8], [62.8, 64.5], [68.4, 73.5], [71, 81.7], [71, 88.4],
+  ],
+  'asset-patrol': [],
+};
+
+function weeklyTrendFor(project) {
+  const readings = weeklyTrendReadings[project.id] ?? [];
+  const firstDateIndex = weeklyTrendDates.length - readings.length;
+  return readings.map(([progress, cost], index) => ({
+    date: weeklyTrendDates[firstDateIndex + index],
+    progress,
+    cost,
+  }));
+}
+
+const progressCostNumber = new Intl.NumberFormat('zh-CN', { maximumFractionDigits: 2 });
+const progressCostDay = 86400000;
+
+function progressCostPercent(value) {
+  return Number.isFinite(value) ? `${progressCostNumber.format(value)}%` : '—';
+}
+
+function progressCostPointText(point) {
+  return `${point.date}，项目进度 ${progressCostPercent(point.progress)}，成本消耗进度 ${progressCostPercent(point.cost)}`;
+}
+
+function progressCostReadout(point) {
+  return `<time datetime="${escapeHtml(point.date)}">${escapeHtml(point.date)}</time>
+    <span class="d-trend-progress"><i aria-hidden="true"></i>项目进度 <strong>${progressCostPercent(point.progress)}</strong></span>
+    <span class="d-trend-cost"><i aria-hidden="true"></i>成本消耗进度 <strong>${progressCostPercent(point.cost)}</strong></span>`;
+}
+
+function progressCostScale(history) {
+  const values = history.flatMap(point => [point.progress, point.cost]).filter(Number.isFinite);
+  const low = Math.min(0, ...values);
+  const high = Math.max(100, ...values);
+  const step = [25, 50, 100, 200, 500].find(size => (high - low) / size <= 6) ?? Math.ceil((high - low) / 5);
+  const min = Math.floor(low / step) * step;
+  const max = Math.ceil(high / step) * step;
+  const ticks = [];
+  for (let value = min; value <= max; value += step) ticks.push(value);
+  return { ticks, pointY: (value) => 100 * (max - value) / (max - min) };
+}
+
+function progressCostCoordinates(history) {
+  const dates = history.map(item => Date.parse(`${item.date}T00:00:00Z`));
+  const span = dates.at(-1) - dates[0];
+  return history.map((point, index) => ({ ...point, day: dates[index], x: span === 0 ? 50 : 100 * (dates[index] - dates[0]) / span }));
+}
+
+function progressCostPath(points, field, pointY) {
+  let previous;
+  return points.map(point => {
+    if (!Number.isFinite(point[field])) {
+      previous = undefined;
+      return '';
+    }
+    const operation = previous && point.day - previous.day <= 7 * progressCostDay ? 'L' : 'M';
+    previous = point;
+    return `${operation}${(point.x * 10).toFixed(2)} ${(pointY(point[field]) * 10).toFixed(2)}`;
+  }).join(' ');
+}
+
+function progressCostPlot(points, selectedIndex) {
+  const { ticks, pointY } = progressCostScale(points);
+  const selected = points[selectedIndex];
+  const marks = points.map((point, index) => {
+    const start = index === 0 ? 0 : (points[index - 1].x + point.x) / 2;
+    const end = index === points.length - 1 ? 100 : (points[index + 1].x + point.x) / 2;
+    const active = index === selectedIndex;
+    const dateLabel = point.date.slice(5);
+    const dots = ['progress', 'cost'].filter(field => Number.isFinite(point[field])).map(field =>
+      `<span class="d-trend-dot d-trend-${field}${active ? ' d-trend-dot-active' : ''}" data-d-trend-dot="${index}" style="--d-trend-x:${point.x}%;--d-trend-y:${pointY(point[field])}%"></span>`).join('');
+    return `${dots}<span class="d-trend-date${active ? ' d-trend-date-active' : ''}" data-d-trend-date="${index}" style="--d-trend-x:${point.x}%">${escapeHtml(dateLabel)}</span>
+      <button type="button" class="d-trend-point" data-d-trend-point="${index}" aria-label="${escapeHtml(progressCostPointText(point))}" aria-pressed="${active}" tabindex="${active ? 0 : -1}" style="--d-trend-hit-left:${start}%;--d-trend-hit-width:${end - start}%"></button>`;
+  }).join('');
+  return `<div class="d-trend-frame">
+    <div class="d-trend-scale" aria-hidden="true">${ticks.map(tick => `<span style="--d-trend-y:${pointY(tick)}%">${tick}%</span>`).join('')}</div>
+    <div class="d-trend-scroll" role="region" aria-label="项目周度趋势，可横向滚动" tabindex="0">
+      <div class="d-trend-plot" style="--d-trend-min:${Math.max(180, (points.length - 1) * 59)}px">
+        <div class="d-trend-track">
+          ${ticks.map(tick => `<span class="d-trend-grid${tick === ticks[0] ? ' d-trend-axis' : ''}" style="--d-trend-y:${pointY(tick)}%" aria-hidden="true"></span>`).join('')}
+          <span class="d-trend-guide" style="--d-trend-x:${selected.x}%" aria-hidden="true"></span>
+          <svg class="d-trend-lines" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+            <path class="d-trend-progress" d="${progressCostPath(points, 'progress', pointY)}" vector-effect="non-scaling-stroke"/>
+            <path class="d-trend-cost" d="${progressCostPath(points, 'cost', pointY)}" vector-effect="non-scaling-stroke"/>
+          </svg>
+          ${marks}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderProgressCostTrend(project) {
+  const history = weeklyTrendFor(project) ?? [];
+  const latest = history.findLastIndex(point => Number.isFinite(point.progress) || Number.isFinite(point.cost));
+  const legend = latest < 0 ? '' : '<div class="d-trend-legend"><span class="d-trend-progress"><i aria-hidden="true"></i>项目进度</span><span class="d-trend-cost"><i aria-hidden="true"></i>成本消耗进度</span></div>';
+  const body = latest < 0 ? '<p class="d-empty d-chart-empty">暂无周度进度和成本记录</p>' : `
+    <div class="d-trend-readout" data-d-trend-readout>${progressCostReadout(history[latest])}</div>
+    <p class="d-scroll-hint d-trend-scroll-hint" hidden>横向滑动查看其他周次</p>
+    ${progressCostPlot(progressCostCoordinates(history), latest)}`;
+  return `<section class="panel d-chart-card d-trend-card" aria-labelledby="d-trend-heading">
+    <div class="d-section-header"><div><h2 id="d-trend-heading">进度-成本跟踪图</h2><p class="d-section-note">每周日记录累计项目进度与成本消耗进度</p></div>${legend}</div>
+    <div class="d-chart-body">${body}</div>
+  </section>`;
+}
+
+function bindProgressCostTrend(view, project) {
+  const chart = view.querySelector('.d-trend-card');
+  const buttons = [...(chart?.querySelectorAll('[data-d-trend-point]') ?? [])];
+  if (!buttons.length) return;
+
+  const points = progressCostCoordinates(weeklyTrendFor(project));
+  const readout = chart.querySelector('[data-d-trend-readout]');
+  const scroller = chart.querySelector('.d-trend-scroll');
+  const scrollHint = chart.querySelector('.d-trend-scroll-hint');
+  const plot = chart.querySelector('.d-trend-track');
+  const guide = chart.querySelector('.d-trend-guide');
+  const dots = chart.querySelectorAll('[data-d-trend-dot]');
+  const labels = chart.querySelectorAll('[data-d-trend-date]');
+  let selected = buttons.findIndex(button => button.getAttribute('aria-pressed') === 'true');
+  const updateScrollHint = () => {
+    scrollHint.hidden = scroller.scrollWidth <= scroller.clientWidth;
+  };
+  updateScrollHint();
+  if (!scrollHint.hidden) scroller.scrollLeft = scroller.scrollWidth;
+  const resizeObserver = new ResizeObserver(() => {
+    if (!chart.isConnected) {
+      resizeObserver.disconnect();
+      return;
+    }
+    updateScrollHint();
+  });
+  resizeObserver.observe(scroller);
+
+  function preview(index) {
+    readout.innerHTML = progressCostReadout(points[index]);
+    guide.style.setProperty('--d-trend-x', `${points[index].x}%`);
+    dots.forEach(dot => dot.classList.toggle('d-trend-dot-active', Number(dot.dataset.dTrendDot) === index));
+    labels.forEach(label => label.classList.toggle('d-trend-date-active', Number(label.dataset.dTrendDate) === index));
+  }
+
+  function select(index) {
+    selected = index;
+    buttons.forEach((button, buttonIndex) => {
+      button.tabIndex = buttonIndex === selected ? 0 : -1;
+      button.setAttribute('aria-pressed', String(buttonIndex === selected));
+    });
+    preview(selected);
+  }
+
+  buttons.forEach((button, index) => {
+    button.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'mouse') preview(index);
+    });
+    button.addEventListener('click', () => select(index));
+    button.addEventListener('focus', () => preview(index));
+    button.addEventListener('blur', () => preview(selected));
+    button.addEventListener('keydown', event => {
+      const offset = event.key === 'ArrowLeft' ? -1 : event.key === 'ArrowRight' ? 1 : 0;
+      let next;
+      if (offset) next = Math.min(buttons.length - 1, Math.max(0, index + offset));
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = buttons.length - 1;
+      if (next === undefined) return;
+      event.preventDefault();
+      select(next);
+      buttons[next].focus();
+    });
+  });
+  plot.addEventListener('pointerleave', () => {
+    const focused = buttons.indexOf(document.activeElement);
+    preview(focused < 0 ? selected : focused);
+  });
+}
+
 const detailStatuses = ['全部', '已完成', '进行中', '已逾期', '未开始'];
 const detailStatusClasses = { 已完成: 'done', 进行中: 'active', 已逾期: 'late', 未开始: 'waiting' };
 const detailDateDay = 86400000;
@@ -1019,12 +1282,14 @@ function renderDetail(project) {
         <div data-d-selection="timeline">${detailSelection(selected)}</div>
       </div>
     </section>
+    ${renderProgressCostTrend(project)}
   </div>`;
 }
 
 function bindDetail(container, project) {
   const view = container.matches('.d-view') ? container : container.querySelector('.d-view');
   if (!view) return;
+  bindProgressCostTrend(view, project);
   const milestones = project.milestones ?? [];
   let selected = detailInitialSelection(milestones);
   let filter = '全部';
@@ -1197,7 +1462,7 @@ function renderHome() {
         <tbody id="project-rows"></tbody>
       </table>
     </div>
-    <div class="table-notes"><span>上周增量统一以百分点显示</span><span id="project-count" class="list-count" aria-live="polite"></span></div>
+    <div class="table-footer"><span id="project-count" class="list-count" aria-live="polite"></span></div>
   </section>`;
 }
 
