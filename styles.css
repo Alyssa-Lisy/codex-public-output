@@ -77,10 +77,12 @@ h2 {
 }
 
 h1 {
-  max-width: 11ch;
-  font-size: var(--text-display);
+  max-width: none;
+  font-size: clamp(2rem, 7vw, 5.25rem);
   line-height: 1.05;
   letter-spacing: -0.035em;
+  overflow-wrap: normal;
+  white-space: nowrap;
 }
 
 h2 {
@@ -95,8 +97,7 @@ h2 {
   font-size: var(--text-md);
 }
 
-.catalogue,
-.policy {
+.catalogue {
   padding-block: var(--space-2xl);
   border-bottom: var(--rule-thin) solid var(--color-rule);
 }
@@ -119,16 +120,6 @@ h2 {
 .empty-state p + p { margin-top: var(--space-xs); color: var(--color-muted); }
 .empty-title { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; }
 
-.policy ol {
-  display: grid;
-  gap: var(--space-xl);
-  margin: var(--space-2xl) 0 0;
-  padding-inline-start: 1.4rem;
-}
-
-.policy li { max-width: 48rem; padding-inline-start: var(--space-sm); }
-.policy li::marker { color: var(--color-accent); font-family: var(--font-display); font-weight: 700; }
-
 .site-footer {
   display: flex;
   flex-wrap: wrap;
@@ -147,7 +138,6 @@ h2 {
 
 @media (min-width: 40rem) {
   body { padding-inline: max(var(--space-xl), env(safe-area-inset-left)); }
-  .policy ol { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
