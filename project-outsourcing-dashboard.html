@@ -36,14 +36,19 @@
   --table-stripe: #fafbfd;
   --track: #e9edf3;
   --focus: #005dbf;
-  --platform-blue: #3178c8;
-  --platform-blue-deep: #2d70bd;
+  --platform-blue: #3880db;
+  --platform-blue-band-start: #518fe4;
+  --platform-blue-band-end: #4888e1;
+  --platform-blue-edge: #5793e9;
   --platform-white: #fff;
-  --platform-band: #ffffff13;
   --platform-border: #ffffff63;
-  --platform-chip: #15498458;
+  --platform-chip: #15498494;
+  --platform-active: #edf3fe;
+  --platform-action: #285f9f;
+  --workspace-tab: #eff1f5;
   --nav-overlay: #17283f59;
-  --header-height: 60px;
+  --header-height: 64px;
+  --workbar-height: 28px;
   --rail-width: 204px;
   --radius: 4px;
   --shadow: 0 1px 2px #1a355403;
@@ -68,25 +73,22 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
 .skip-link:focus { transform: none; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-.app-header { position: sticky; top: 0; z-index: 8; color: var(--platform-white); background: linear-gradient(126deg, transparent 0 55%, var(--platform-band) 55% 75%, transparent 75%), linear-gradient(105deg, var(--platform-blue-deep), var(--platform-blue)); }
-.app-header-inner { height: var(--header-height); padding: 0 24px; display: flex; align-items: center; gap: 12px; }
+.app-header { position: sticky; top: 0; z-index: 8; color: var(--platform-white); background: linear-gradient(125deg, var(--platform-blue) 55%, var(--platform-blue-band-start) 55%, var(--platform-blue-band-end) 75%, var(--platform-blue-edge) 75%); }
+.app-header-inner { height: var(--header-height); padding: 0 28px; display: flex; align-items: center; gap: 12px; }
 .app-header :focus-visible { outline-color: var(--platform-white); }
-.app-brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 650; font-size: 17px; color: inherit; }
+.app-brand { display: inline-flex; align-items: center; gap: 12px; color: inherit; }
 .app-brand:hover { text-decoration: none; }
-.brand-icon { display: inline-flex; align-items: end; justify-content: center; gap: 3px; width: 30px; height: 30px; padding-bottom: 6px; flex: none; border: 1px solid var(--platform-border); border-radius: var(--radius); }
-.brand-icon i { width: 3px; height: 8px; border-radius: 1px; background: currentColor; }
-.brand-icon i:nth-child(2) { height: 12px; }
-.brand-icon i:nth-child(3) { height: 16px; }
-.demo-mark { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; padding: 2px 8px; color: inherit; background: var(--platform-chip); border: 1px solid var(--platform-border); border-radius: 3px; font-size: 12px; white-space: nowrap; }
+.brand-mark { font: 700 20px/24px var(--font-num); }
+.brand-title { padding-inline-start: 12px; border-inline-start: 1px solid var(--platform-border); font-size: 20px; font-weight: 700; line-height: 24px; }
+.demo-mark { display: inline-flex; align-items: center; min-height: 24px; gap: 6px; margin-left: auto; padding: 0 8px; color: inherit; background: var(--platform-chip); border: 1px solid var(--platform-border); border-radius: var(--radius); font-size: 12px; white-space: nowrap; }
 .demo-mark span { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
 .menu-toggle, .nav-scrim { display: none; }
 .app-layout { display: grid; grid-template-columns: var(--rail-width) minmax(0, 1fr); min-height: calc(100vh - var(--header-height)); }
-.sidebar { min-width: 0; background: var(--paper); border-right: 1px solid var(--line); padding-top: 12px; }
-.sidebar nav { position: sticky; top: calc(var(--header-height) + 12px); }
-.sidebar-title { display: flex; align-items: center; gap: 12px; min-height: 36px; margin: 0 12px; padding-inline: 12px; font-size: 14px; font-weight: 600; }
-.sidebar-link { position: relative; display: flex; align-items: center; gap: 8px; min-height: 40px; margin: 4px 8px 0; padding: 8px 12px 8px 26px; border-radius: 2px; color: var(--blue-dark); background: var(--blue-light); font-weight: 600; }
-.sidebar-link::before { content: ""; position: absolute; top: 8px; bottom: 8px; left: 0; width: 3px; border-radius: 0 2px 2px 0; background: var(--blue); }
-.sidebar-link:hover { text-decoration: none; background: var(--blue-light); box-shadow: inset 0 0 0 1px var(--blue-line); }
+.sidebar { min-width: 0; background: var(--paper); border-right: 1px solid var(--line); padding: 16px 8px; }
+.sidebar nav { position: sticky; top: calc(var(--header-height) + 16px); }
+.sidebar-title { display: flex; align-items: center; gap: 12px; min-height: 40px; margin: 0; padding-inline: 16px; font-size: 14px; font-weight: 600; }
+.sidebar-link { display: flex; align-items: center; gap: 8px; min-height: 40px; margin-top: 4px; padding: 8px 12px 8px 32px; border-radius: var(--radius); color: var(--platform-action); background: var(--platform-active); font-size: 14px; font-weight: 600; }
+.sidebar-link:hover { text-decoration: none; box-shadow: inset 0 0 0 1px var(--blue-line); }
 .folder-icon, .dashboard-icon { position: relative; display: inline-block; flex: none; }
 .folder-icon { width: 15px; height: 11px; border: 1.5px solid currentColor; border-radius: 2px; }
 .folder-icon::before { content: ""; position: absolute; width: 7px; height: 3px; bottom: 100%; left: -1.5px; border: 1.5px solid currentColor; border-bottom: 0; border-radius: 2px 2px 0 0; }
@@ -96,12 +98,12 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
 .dashboard-icon::after { top: 3px; left: 4px; bottom: 0; width: 1px; }
 
 .workspace { min-width: 0; }
-.workspace-inner { max-width: 1568px; margin: 0 auto; min-width: 0; padding: 12px 16px 24px; }
-.workbar { position: sticky; z-index: 3; top: var(--header-height); display: flex; align-items: center; gap: 12px; min-width: 0; min-height: 34px; padding: 0 16px 0 8px; border-bottom: 1px solid var(--line); background: var(--paper); }
-.worktabs { align-self: stretch; display: flex; flex: none; align-items: end; }
-.worktab { display: flex; align-items: center; gap: 8px; padding: 4px 12px; height: 30px; background: var(--canvas); border: 1px solid var(--line); border-bottom-color: var(--canvas); border-radius: 3px 3px 0 0; color: var(--blue-dark); font-size: 12px; font-weight: 600; transform: translateY(1px); }
-.worktab .dashboard-icon { scale: .85; }
-.worktab:hover { background: var(--blue-light); text-decoration: none; }
+.workspace-inner { max-width: 1568px; margin: 0 auto; min-width: 0; padding: 12px 12px 24px; }
+.workbar { position: sticky; z-index: 3; top: var(--header-height); display: flex; align-items: center; gap: 12px; min-width: 0; min-height: var(--workbar-height); padding: 0 16px 0 8px; border-bottom: 1px solid var(--line); background: var(--paper); }
+.worktabs { align-self: stretch; display: flex; align-items: end; min-width: 0; overflow: auto hidden; scrollbar-width: none; }
+.worktab { display: flex; flex: none; align-items: center; gap: 8px; padding: 0 12px; height: 24px; background: var(--workspace-tab); border-radius: var(--radius) var(--radius) 0 0; color: var(--platform-action); font-size: 12px; font-weight: 600; }
+.worktab .dashboard-icon { width: 12px; height: 12px; }
+.worktab:hover { background: var(--platform-active); text-decoration: none; }
 .worktab:focus-visible { outline-offset: -2px; }
 .work-scope { margin-left: auto; padding-right: 12px; border-right: 1px solid var(--line); color: var(--muted); font-size: 12px; white-space: nowrap; }
 .panel { min-width: 0; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
@@ -240,8 +242,9 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
 }
 @media (max-width: 440px) {
   .app-header-inner { gap: 8px; }
-  .app-brand { gap: 8px; font-size: 15px; }
-  .brand-icon { width: 26px; height: 26px; padding-bottom: 4px; }
+  .app-brand { gap: 8px; }
+  .brand-mark { display: none; }
+  .brand-title { padding-inline-start: 0; border-inline-start: 0; }
   .workbar { padding-right: 8px; }
   .list-header, .table-footer { padding-inline: 12px; }
 }
@@ -258,16 +261,19 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
 .d-view .panel { min-width: 0; }
 
 .d-project-header { padding: 0 var(--d-pad); }
-.d-project-heading-row { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; min-height: 52px; padding-block: 8px; border-bottom: 1px solid var(--line); }
+.d-project-heading-row { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; min-height: 48px; padding-block: 8px; border-bottom: 1px solid var(--line); }
 .d-project-title { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; min-width: 0; }
-.d-project-title h1 { margin: 0; font-size: 20px; line-height: 1.4; font-weight: 600; overflow-wrap: anywhere; }
-.d-back-link { display: inline-flex; align-items: center; gap: 4px; flex: none; color: var(--blue-dark); font-size: 13px; font-weight: 500; white-space: nowrap; }
-.d-back-link:hover { text-decoration: underline; }
-.d-back-link span { font-size: 16px; line-height: 1; }
-.d-project-meta { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 0; padding-block: 12px 0; font-size: 13px; }
-.d-project-meta > div { display: flex; flex-wrap: wrap; gap: 2px 8px; }
-.d-project-meta dt { color: var(--muted); font-size: 12px; align-self: center; }
-.d-project-meta dd { color: var(--ink); margin: 0; font-weight: 500; }
+.d-project-title h1 { margin: 0; font-size: 18px; line-height: 1.5; font-weight: 600; overflow-wrap: anywhere; }
+.d-back-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex: none; min-height: 32px; padding: 4px 8px; border-radius: var(--radius); color: var(--blue-dark); font-size: 14px; line-height: 1.5; white-space: nowrap; }
+.d-back-link:hover, .d-back-link:active { background: var(--blue-light); color: var(--blue-dark); }
+.d-back-icon { position: relative; width: 12px; height: 12px; }
+.d-back-icon::before, .d-back-icon::after { content: ''; position: absolute; left: 1px; }
+.d-back-icon::before { top: 5px; width: 11px; border-top: 1px solid currentColor; }
+.d-back-icon::after { top: 3px; width: 5px; height: 5px; border-left: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg); }
+.d-project-meta { display: grid; grid-template-columns: minmax(0, 1.45fr) repeat(2, minmax(0, 1fr)); gap: 4px 24px; margin: 0; max-width: 764px; padding-block: 12px 0; font-size: 14px; line-height: 1.5; }
+.d-project-meta > div { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 8px; align-items: baseline; }
+.d-project-meta dt { color: var(--muted); font-size: 12px; white-space: nowrap; }
+.d-project-meta dd { color: var(--ink); margin: 0; overflow-wrap: anywhere; }
 
 .d-kpis {
   display: grid;
@@ -277,29 +283,33 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
 }
 
 .d-kpi {
-  min-height: 68px;
-  padding: 8px 12px;
+  --d-metric-pad: 12px;
+  --d-ring-size: 32px;
+  position: relative;
+  min-height: 64px;
+  padding: 8px var(--d-metric-pad);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
+  gap: 4px;
   min-width: 0;
   background: var(--soft);
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
 
-.d-kpi-ring { flex-direction: row; align-items: center; justify-content: flex-start; gap: 8px; }
+.d-kpi-ring { padding-inline-start: calc(var(--d-metric-pad) + var(--d-ring-size) + 8px); }
 .d-kpi-label { color: var(--muted); font-size: 12px; line-height: 1.5; }
-.d-kpi-value { color: var(--ink); font: 650 clamp(18px, 1.55vw, 23px) / 1.12 var(--font-num); font-variant-numeric: tabular-nums; letter-spacing: -.03em; white-space: nowrap; }
+.d-kpi-value { margin: 0; color: var(--ink); font: 600 clamp(18px, 1.55vw, 22px) / 1.12 var(--font-num); font-variant-numeric: tabular-nums; letter-spacing: -.02em; white-space: nowrap; }
 .d-kpi-value small { margin-inline-start: 2px; font: 500 12px / 1.2 var(--font-body, sans-serif); letter-spacing: 0; color: var(--muted); }
-.d-kpi-ring .d-kpi-label { margin-bottom: 4px; }
 .d-ring {
   --d-ring-color: var(--blue);
-  position: relative;
-  flex: 0 0 36px;
-  width: 36px;
-  height: 36px;
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: var(--d-metric-pad);
+  width: var(--d-ring-size);
+  height: var(--d-ring-size);
+  transform: translateY(-50%);
   border-radius: 50%;
   background: conic-gradient(var(--d-ring-color) var(--d-ring-value), var(--track) var(--d-ring-value));
 }
@@ -470,16 +480,14 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
 
 @media (max-width: 650px) {
   .d-view { gap: 12px; --d-name-col: 136px; --d-pad: 12px; }
-  .d-project-title h1 { font-size: 18px; }
   .d-project-heading-row { align-items: flex-start; }
-  .d-back-link { padding-top: 3px; font-size: 12px; }
+  .d-project-title { align-self: center; }
+  .d-back-link { gap: 4px; padding-inline: 4px; font-size: 12px; }
   .d-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-block: 12px; }
-  .d-kpi { padding: 8px; min-height: 64px; }
-  .d-kpi-ring { gap: 4px; }
-  .d-ring { width: 28px; height: 28px; flex-basis: 28px; }
-  .d-ring::after { inset: 4px; }
-  .d-project-meta { gap: 4px 12px; }
+  .d-kpi { --d-metric-pad: 8px; --d-ring-size: 28px; }
+  .d-project-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; }
   .d-project-meta > div { column-gap: 4px; }
+  .d-project-meta > div:first-child { grid-column: 1 / -1; }
   .d-gantt-select, .d-gantt-heading .d-gantt-name { padding-inline: 8px; }
   .d-section-header { flex-direction: column; align-items: flex-start; }
   .d-scale { align-self: flex-start; }
@@ -545,7 +553,7 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
   <header class="app-header">
     <div class="app-header-inner">
       <button class="menu-toggle" id="menu-toggle" type="button" aria-label="展开导航" aria-expanded="false" aria-controls="project-sidebar"><span aria-hidden="true"></span></button>
-      <a class="app-brand" href="#projects" data-return><span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i></span><span>项目管理系统</span></a>
+      <a class="app-brand" href="#projects" data-return><span class="brand-mark" aria-hidden="true">PMIS</span><span class="brand-title">项目管理系统</span></a>
       <span class="demo-mark"><span aria-hidden="true"></span>原型 · 示例数据</span>
     </div>
   </header>
@@ -1063,13 +1071,13 @@ function detailRing(label, value, type) {
   const fill = Math.min(100, Math.max(0, value ?? 0));
   const color = type === 'cost' && value > 100 ? ' d-ring-over' : '';
   return `<div class="d-kpi d-kpi-ring${color}">
-    <div class="d-ring" style="--d-ring-value:${fill}%" aria-hidden="true"></div>
-    <div><div class="d-kpi-label">${label}</div><div class="d-kpi-value">${detailPercent(value)}</div></div>
+    <dt class="d-kpi-label">${label}</dt>
+    <dd class="d-kpi-value"><span class="d-ring" style="--d-ring-value:${fill}%" aria-hidden="true"></span>${detailPercent(value)}</dd>
   </div>`;
 }
 
 function detailKpi(label, value, suffix = '') {
-  return `<div class="d-kpi"><div class="d-kpi-label">${label}</div><div class="d-kpi-value">${value}${suffix ? `<small>${suffix}</small>` : ''}</div></div>`;
+  return `<div class="d-kpi"><dt class="d-kpi-label">${label}</dt><dd class="d-kpi-value">${value}${suffix ? `<small>${suffix}</small>` : ''}</dd></div>`;
 }
 
 function detailDeliveryTable(deliverables) {
@@ -1233,21 +1241,25 @@ function renderDetail(project) {
   const statusCounts = Object.fromEntries(detailStatuses.map(status => [status, status === '全部' ? milestones.length : milestones.filter(item => statusOf(item) === status).length]));
   return `<div class="d-view">
     <section class="panel d-summary" aria-labelledby="d-project-heading">
-      <div class="d-project-header">
+      <header class="d-project-header">
         <div class="d-project-heading-row">
           <div class="d-project-title"><h1 id="d-project-heading" tabindex="-1">${escapeHtml(project.name)}</h1>${healthBadge(project.health)}</div>
-          <a class="d-back-link" href="#projects" data-return><span aria-hidden="true">←</span>返回看板</a>
+          <a class="d-back-link" href="#projects" data-return><span class="d-back-icon" aria-hidden="true"></span>返回看板</a>
         </div>
-        <dl class="d-project-meta"><div><dt>客户名称</dt><dd>${escapeHtml(project.customer)}</dd></div><div><dt>项目阶段</dt><dd>${escapeHtml(project.stage)}</dd></div><div><dt>项目经理</dt><dd>${escapeHtml(project.manager)}</dd></div></dl>
-      </div>
-      <div class="d-kpis">
+        <dl class="d-project-meta">
+          <div><dt>客户名称</dt><dd>${escapeHtml(project.customer)}</dd></div>
+          <div><dt>项目阶段</dt><dd>${escapeHtml(project.stage)}</dd></div>
+          <div><dt>项目经理</dt><dd>${escapeHtml(project.manager)}</dd></div>
+        </dl>
+      </header>
+      <dl class="d-kpis">
         ${detailRing('项目进度', project.progress, 'progress')}
         ${detailRing('成本消耗进度', project.cost, 'cost')}
         ${detailKpi('预估工作量', project.estimate == null ? '—' : detailNumber.format(project.estimate), '人天')}
         ${detailKpi('实际消耗', project.actual == null ? '—' : detailNumber.format(project.actual), '人天')}
         ${detailKpi('已完成里程碑', `${completed}<small> / ${milestones.length}</small>`)}
         ${detailKpi('已验收交付物', `${accepted}<small> / ${deliverables.length}</small>`)}
-      </div>
+      </dl>
       <details class="d-deliverables">
         <summary><span>验收交付物明细</span><span class="d-delivery-count">已验收 ${accepted} 项 / 应验收 ${deliverables.length} 项</span><i class="d-delivery-chevron" aria-hidden="true"></i></summary>
         ${detailDeliveryTable(deliverables)}
