@@ -162,21 +162,24 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
 
 .project-grid { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-color: var(--line-strong) var(--soft); }
 .project-grid:focus-visible { outline-offset: -2px; }
-.project-table { width: 100%; min-width: 1104px; border-spacing: 0; border-collapse: separate; table-layout: fixed; text-align: left; }
+.project-table { width: 100%; min-width: 1176px; border-spacing: 0; border-collapse: separate; table-layout: fixed; text-align: left; }
 .project-table th { background: var(--table-head); color: var(--ink); border-block: 1px solid var(--line); font-size: 14px; font-weight: 600; white-space: nowrap; }
 .project-table :where(th, td) { padding: 8px; vertical-align: middle; }
 .project-table :where(th, td):first-child { padding-left: 16px; }
 .project-table :where(th, td):last-child { padding-right: 16px; }
-.project-table th:nth-child(1) { width: 16%; }
-.project-table th:nth-child(2) { width: 15.2%; }
+.project-table th:nth-child(1) { width: 14.5%; }
+.project-table th:nth-child(2) { width: 13.4%; }
 .project-table th:nth-child(3) { width: 6.3%; }
-.project-table th:nth-child(4) { width: 7.2%; }
-.project-table th:nth-child(5) { width: 6.6%; }
-.project-table th:nth-child(6) { width: 8.6%; }
-.project-table th:nth-child(7) { width: 11.5%; }
-.project-table th:nth-child(8) { width: 14%; }
-.project-table th:nth-child(9) { width: 14.6%; }
-.project-table :is(th, td):is(:nth-child(6), :nth-child(7), :nth-child(9)) { text-align: right; }
+.project-table th:nth-child(4) { width: 6.6%; }
+.project-table th:nth-child(5) { width: 6%; }
+.project-table th:nth-child(6) { width: 8%; }
+.project-table th:nth-child(7) { width: 10.1%; }
+.project-table th:nth-child(8) { width: 12.6%; }
+.project-table th:nth-child(9) { width: 9.7%; }
+.project-table th:nth-child(10) { width: 12.8%; }
+.project-table :is(th, td):is(:nth-child(6), :nth-child(7)),
+.project-table th:is([data-column="weeklyProgress"], [data-column="weekly"]),
+.project-table .weekly-cell { text-align: right; }
 .project-table td { height: 48px; font-size: 14px; border-bottom: 1px solid var(--line); line-height: 1.36; }
 .project-table tbody tr:not(.empty-row) { cursor: pointer; }
 .project-table tbody tr:nth-child(even) td { background: var(--table-stripe); }
@@ -205,7 +208,7 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
 .unknown-project a { display: inline-block; margin-top: 8px; }
 .no-script { padding: 16px; }
 
-@media (max-width: 1360px) {
+@media (max-width: 1414px) {
   .project-table :where(th, td):first-child { position: sticky; left: 0; z-index: 1; background: var(--paper); box-shadow: 1px 0 var(--line); }
   .project-table th:first-child { background: var(--table-head); }
   .project-table .empty-row td { position: static; box-shadow: none; text-align: left; }
@@ -521,7 +524,7 @@ h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; min-widt
   </div>
   <script>
 // 演示数据。客户、人员、项目、指标与状态均为虚构，快照日期为 2026-11-23。
-// cost 为成本消耗进度（%），weekly 为上周成本消耗增量（百分点）。
+// cost 为成本消耗进度（%），weeklyProgress 和 weekly 分别为上周进度和成本消耗增量（百分点）。
 const projects = [
   {
     id: "smart-factory",
@@ -534,6 +537,7 @@ const projects = [
     cost: 74.2,
     estimate: 1260,
     actual: 873.5,
+    weeklyProgress: 3.5,
     weekly: 4.6,
     milestones: [
       { id: "kickoff", name: "项目启动", start: "2026-07-13", end: "2026-07-17", progress: 100, actualDate: "2026-07-17" },
@@ -568,6 +572,7 @@ const projects = [
     cost: 106.8,
     estimate: 790,
     actual: 724,
+    weeklyProgress: 2.2,
     weekly: 9.1,
     milestones: [
       { id: "scope", name: "仓储流程与范围确认", start: "2026-07-27", end: "2026-08-21", progress: 100, actualDate: "2026-08-21" },
@@ -593,6 +598,7 @@ const projects = [
     cost: 83.5,
     estimate: 1030,
     actual: 886,
+    weeklyProgress: 5.1,
     weekly: 3.2,
     milestones: [
       { id: "definition", name: "渠道业务需求确认", start: "2026-06-15", end: "2026-07-17", progress: 100, actualDate: "2026-07-16" },
@@ -619,6 +625,7 @@ const projects = [
     cost: 43,
     estimate: 1550,
     actual: 692,
+    weeklyProgress: 6,
     weekly: 3.8,
     milestones: [
       { id: "inventory", name: "数据盘点", start: "2026-08-17", end: "2026-09-18", progress: 100, actualDate: "2026-09-18" },
@@ -644,6 +651,7 @@ const projects = [
     cost: 80.6,
     estimate: 580,
     actual: 458.5,
+    weeklyProgress: 7.8,
     weekly: 5.4,
     milestones: [
       { id: "research", name: "客服场景调研", start: "2026-08-10", end: "2026-08-28", progress: 100, actualDate: "2026-08-28" },
@@ -669,6 +677,7 @@ const projects = [
     cost: 18.4,
     estimate: 460,
     actual: 93,
+    weeklyProgress: 4,
     weekly: 2.2,
     milestones: [
       { id: "kickoff", name: "项目启动会", start: "2026-10-19", end: "2026-10-23", progress: 100, actualDate: "2026-10-23" },
@@ -693,6 +702,7 @@ const projects = [
     cost: 55.9,
     estimate: 670,
     actual: 385,
+    weeklyProgress: 11.6,
     weekly: 2.8,
     milestones: [
       { id: "audit", name: "能源设备盘点", start: "2026-08-03", end: "2026-08-28", progress: 100, actualDate: "2026-08-27" },
@@ -717,6 +727,7 @@ const projects = [
     cost: 88.4,
     estimate: 720,
     actual: 596,
+    weeklyProgress: 0,
     weekly: 6.7,
     milestones: [
       { id: "assess", name: "迁移范围与风险评估", start: "2026-08-24", end: "2026-09-18", progress: 100, actualDate: "2026-09-18" },
@@ -742,6 +753,7 @@ const projects = [
     cost: null,
     estimate: 320,
     actual: 8,
+    weeklyProgress: null,
     weekly: null,
     milestones: [
       { id: "kickoff", name: "项目启动会", start: "2026-11-20", end: "2026-11-25", progress: 60, actualDate: null },
@@ -1179,12 +1191,13 @@ function renderHome() {
           ${sortableHeader('项目进度', 'progress')}
           ${sortableHeader('成本消耗进度', 'cost')}
           ${sortableHeader('最近里程碑节点', 'milestone', '优先显示计划完成日离统计日期最近的未完成节点')}
+          ${sortableHeader('上周进度增量', 'weeklyProgress', '演示单位：百分点')}
           ${sortableHeader('上周成本消耗增量', 'weekly', '演示单位：百分点')}
         </tr></thead>
         <tbody id="project-rows"></tbody>
       </table>
     </div>
-    <div class="table-notes"><span>上周成本消耗增量 · 单位为百分点</span><span id="project-count" class="list-count" aria-live="polite"></span></div>
+    <div class="table-notes"><span>上周增量统一以百分点显示</span><span id="project-count" class="list-count" aria-live="polite"></span></div>
   </section>`;
 }
 
@@ -1196,15 +1209,19 @@ function progressCell(value, isCost = false) {
     <span class="cell-track" aria-hidden="true"><i style="--bar-width:${width}%"></i></span></div>`;
 }
 
+function weeklyDeltaCell(value) {
+  const amount = Number.isFinite(value)
+    ? `<span class="weekly-number ${value === 0 ? 'neutral' : ''}">${value > 0 ? '+' : ''}${numericFormat.format(value)}</span>`
+    : '<span class="missing" aria-label="暂无数据">-</span>';
+  return `<td class="weekly-cell">${amount}</td>`;
+}
+
 function projectRow(project) {
   const milestone = nearestMilestone(project);
   const overdue = milestone && statusOf(milestone) === '已逾期';
   const milestoneLabel = milestone
     ? `<div class="milestone-cell"><span title="${escapeHtml(milestone.name)}">${escapeHtml(milestone.name)}</span><small class="${overdue ? 'late' : ''}">${formatDate(milestone.end)}${overdue ? ' · 逾期' : (statusOf(milestone) === '已完成' ? ' · 已完成' : '')}</small></div>`
     : '<span class="missing" aria-label="暂无里程碑">-</span>';
-  const amount = Number.isFinite(project.weekly)
-    ? `<span class="weekly-number ${project.weekly === 0 ? 'neutral' : ''}">${project.weekly > 0 ? '+' : ''}${numericFormat.format(project.weekly)}</span>`
-    : '<span class="missing" aria-label="暂无数据">-</span>';
   return `<tr data-project-row="${escapeHtml(project.id)}">
     <td><a class="project-link" href="#project/${encodeURIComponent(project.id)}" data-project="${escapeHtml(project.id)}" title="${escapeHtml(project.name)}">${escapeHtml(project.name)}</a></td>
     <td class="customer-cell"><span title="${escapeHtml(project.customer)}">${escapeHtml(project.customer)}</span></td>
@@ -1214,7 +1231,8 @@ function projectRow(project) {
     <td>${progressCell(project.progress)}</td>
     <td>${progressCell(project.cost, true)}</td>
     <td>${milestoneLabel}</td>
-    <td class="weekly-cell">${amount}</td>
+    ${weeklyDeltaCell(project.weeklyProgress)}
+    ${weeklyDeltaCell(project.weekly)}
   </tr>`;
 }
 
@@ -1240,7 +1258,7 @@ function currentProjects() {
 function updateList() {
   const matches = currentProjects();
   document.querySelector('#project-rows').innerHTML = matches.length ? matches.map(projectRow).join('') :
-    '<tr class="empty-row"><td colspan="9"><strong>没有符合条件的项目</strong>可调整搜索关键词或筛选条件。</td></tr>';
+    '<tr class="empty-row"><td colspan="10"><strong>没有符合条件的项目</strong>可调整搜索关键词或筛选条件。</td></tr>';
   document.querySelector('#project-count').textContent = matches.length === projects.length
     ? `共 ${projects.length} 个项目`
     : `显示 ${matches.length} / ${projects.length} 个项目`;
